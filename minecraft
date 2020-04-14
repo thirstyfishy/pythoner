@@ -1,0 +1,221 @@
+workspace "mconeweek"
+    configurations {"Debug", "Release"}
+
+project "mconeweek"
+    kind "WindowedApp"
+    language "C++"
+    targetdir "bin/%{cfg.buildcfg}"
+
+    links {os.findlib("sfml")}
+    links {"sfml-audio", "sfml-network", "sfml-graphics", "sfml-window", "sfml-system", "pthread", "dl"}
+
+
+
+    files {"./Source/**.cpp", "./Source/**.c", "./Source/**.h"}
+
+
+filter "configurations:Debug"
+    defines { "DEBUG" }
+    symbols "On"
+
+ filter "configurations:Release"
+    defines { "NDEBUG" }
+    optimize "On"
+    renderdistance 8
+fullscreen 0
+windowsize 1280 720
+fov 105
+Name
+Air
+
+Id
+0
+
+TexTop
+0 0
+
+TexSide
+0 0
+
+TexBottom
+0 0
+
+Opaque
+0
+
+MeshType
+0
+
+ShaderType
+0
+
+Collidable
+0
+Name
+Air
+
+Id
+0
+
+TexTop
+0 0
+
+TexSide
+0 0
+
+TexBottom
+0 0
+
+Opaque
+0
+
+MeshType
+0
+
+ShaderType
+0
+
+Collidable
+0
+Name
+OakBark
+
+Id
+13
+
+TexAll
+3 1
+
+Opaque
+1
+
+MeshType
+0
+Name
+Dirt
+
+Id
+2
+
+TexAll
+2 0
+
+Opaque
+1
+
+MeshType
+0
+
+ShaderType
+0
+
+Collidable
+1
+Name
+Dirt
+
+Id
+2
+
+TexAll
+2 0
+
+Opaque
+1
+
+MeshType
+0
+
+ShaderType
+0
+
+Collidable
+1
+Name
+GlassBorderless
+
+Id
+15
+
+TexAll
+8 1
+
+Opaque
+0
+
+MeshType
+0
+
+ShaderType
+0
+
+Collidable
+1
+Name
+Grass
+
+Id
+1
+
+TexTop
+0 0
+
+TexSide
+1 0
+
+TexBottom
+2 0
+
+Opaque
+1
+
+MeshType
+0
+
+ShaderType
+0
+
+Collidable
+1
+Language: Cpp
+BasedOnStyle: LLVM
+IndentWidth: 4
+
+BreakBeforeBraces: Stroustrup
+FixNamespaceComments: true
+IndentCaseLabels: true
+NamespaceIndentation: None
+
+BreakConstructorInitializersBeforeComma: true
+
+AllowShortFunctionsOnASingleLine: None
+
+ColumnLimit: 80
+Debug/
+Release/
+*.sln
+*.vcxproj
+*.filters
+*.users
+*.user
+*.dll
+.vs
+cmake_minimum_required(VERSION 3.0)
+
+set(CMAKE_CXX_STANDARD 17)
+
+#Enable debug symbols
+if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose debug or release" FORCE)
+endif()
+
+project(mc-one-week)
+
+#Add the files
+file(GLOB_RECURSE SOURCES Source/*.cpp)
+add_executable(mc-one-week ${SOURCES})
+
+renderdistance 8
+fullscreen 0
+windowsize 1280 720
+fov 105
