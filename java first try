@@ -1,0 +1,82 @@
+
+import java.io.*;
+import java.awt.*;
+import java.awt.datatransfer.*;
+import java.awt.event.*;
+
+
+public class ClipMe extends Frame
+ implements ActionListener {
+
+  private TextField tf;
+  private TextArea ta;
+
+  public static void main(String[] args) {
+    new ClipMe().show();
+  }
+
+  public ClipMe() {
+
+    super("Clipping Example");
+    add(tf = new TextField("Welcome"), "North");
+    add(ta = new TextArea(), "Center");
+    MenuBar mb = new MenuBar();
+    mb.add(makeEditMenu());
+    setMenuBar(mb);
+    setSize(250, 250);
+
+  }
+
+
+  private Menu makeEditMenu() {
+
+    Menu editMenu = new Menu("Edit");
+    MenuItem mi = new MenuItem("Cut");
+    mi.addActionListener(this);
+    editMenu.add(mi);
+    mi = new MenuItem("Copy");
+    mi.addActionListener(this);
+    editMenu.add(mi);
+    mi = new MenuItem("Paste");
+    mi.addActionListener(this);
+    editMenu.add(mi);
+    mi = new MenuItem("Clear");
+    mi.addActionListener(this);
+    editMenu.add(mi);
+
+    return editMenu;
+
+  }
+
+
+  public void actionPerformed(ActionEvent evt) {
+
+    Clipboard clipboard = getToolkit().getSystemClipboard();
+    String cmd = evt.getActionCommand();
+    if (cmd.equalsIgnoreCase("copy")) {
+       StringSelection data = new StringSelection(tf.getText());
+       clipboard.setContents(data, data);
+    }
+    else if (cmd.equalsIgnoreCase("clear")) {
+      tf.setText("");
+    }
+    else if (cmd.equalsIgnoreCase("paste")) {
+      Transferable clipData = clipboard.getContents(this);
+      String s;
+      try {
+        s = (String) (clipData.getTransferData(DataFlavor.stringFlavor));
+      }
+      catch (Exception ex) {
+        s = ex.toString();
+      }
+      ta.setText(s);
+    }
+    else if (cmd.equalsIgnoreCase("cut")) {
+       StringSelection data = new StringSelection(tf.getText());
+       clipboard.setContents(data, data);
+       tf.setText("");
+    }
+
+  }
+
+}
